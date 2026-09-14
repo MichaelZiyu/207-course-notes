@@ -6,7 +6,7 @@
 
     <parent>
         <groupId>cs.toronto.edu.csc207</groupId>
-        <artifactId>course-notes</artifactId>
+        <artifactId>207-course-notes</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
