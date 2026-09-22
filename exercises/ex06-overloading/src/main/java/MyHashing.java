@@ -29,6 +29,7 @@ public class MyHashing {
    */
   public MyHashing(int seed) {
     // TODO: store the parameter in this object's seed field.
+    this.seed = seed;
   }
 
   /**
@@ -38,8 +39,9 @@ public class MyHashing {
    * @return the seed value from before this call
    */
   public int hash(int value) {
-    // TODO
-    return 0;
+    int buf = seed;
+    this.seed = value;
+    return buf;
   }
 
   /**
@@ -52,7 +54,9 @@ public class MyHashing {
    */
   public int hash(char value) {
     // TODO
-    return 0;
+    int buf_seed = seed;
+    this.seed = value;
+    return (buf_seed + value) % MODULO;
   }
 
   /**
@@ -65,6 +69,12 @@ public class MyHashing {
    */
   public static int hash(String value) {
     // TODO: String.toCharArray() may help.
-    return 0;
+    char[] arr = value.toCharArray();
+    int sum = 0;
+    for (int i : arr){
+      sum += i;
+    }
+    return sum;
+
   }
 }
