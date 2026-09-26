@@ -24,7 +24,7 @@ public class Rectangle {
    * @return width times height
   */
   public double area() {
-        return width * height;
+    return width * height;
   }
 
   /**
