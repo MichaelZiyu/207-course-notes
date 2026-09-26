@@ -9,24 +9,26 @@ public class Rectangle {
   private double height;
 
   /**initialize the rectangle by its width and height.
+   *
    * @param w width
    * @param h height
   */
-  public Rectangle(double w,double h){
-    this.width=w;
-    this.height=h;
+  public Rectangle(double w, double h) {
+    this.width = w;
+    this.height = h;
   }
 
 
   /** calculate and return width times height.
    * @return width times height
   */
-  public double area(){
-        return width*height;
+  public double area() {
+        return width * height;
   }
 
   /**
    * scales the rectangle.
+   *
    * @param factor scalling factor
   */
   public void scale(double factor) {
@@ -36,11 +38,12 @@ public class Rectangle {
 
   /**
    * compare the rectangle with another rectangle by areas.
+   *
    * @param item another rectangle
    * @return whether current area is larger than item area
   */
-  public boolean isLargerThan(Rectangle item){
-    if (area() > item.area()){return true;}
+  public boolean isLargerThan(Rectangle item) {
+    if (area() > item.area()) { return true; }
     return false;
   }
 }
