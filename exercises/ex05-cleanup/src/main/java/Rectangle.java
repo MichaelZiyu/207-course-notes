@@ -20,6 +20,7 @@ public class Rectangle {
 
 
   /** calculate and return width times height.
+   *
    * @return width times height
   */
   public double area() {
@@ -40,10 +41,13 @@ public class Rectangle {
    * compare the rectangle with another rectangle by areas.
    *
    * @param item another rectangle
+   *
    * @return whether current area is larger than item area
   */
   public boolean isLargerThan(Rectangle item) {
-    if (area() > item.area()) { return true; }
+    if (area() > item.area()) {
+      return true;
+    }
     return false;
   }
 }
