@@ -19,7 +19,7 @@ hide empty members
 ' (Putting the parent/interface on the LEFT of the arrow keeps it on top.)
 
 interface Chargeable {
-  + charge() : void
+  charge() : void
 }
 
 ' TODO: add "abstract class Vehicle", "class Car", and "class ElectricCar"

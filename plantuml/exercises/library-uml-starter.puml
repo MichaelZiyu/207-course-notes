@@ -31,28 +31,35 @@ abstract class Item {
   - catalogueNumber : String
   + getTitle() : String
   + getCatalogueNumber() : String
+
 }
 
-interface Borrowable {
+abstract class Borrowable extends Item{
+  - borrowed : boolean
   + getBorrowWeek() : int
+  + borrow() : void
+  + unborrow() : void
 }
 
-class Book extends Item implements Borrowable{
+class Book extends Borrowable{
   + getBorrowWeek() : int
+  + borrow() : void
+  + unborrow() : void
 }
 
-class DVD extends Item implements Borrowable{
+class DVD extends Borrowable{
   + getBorrowWeek() : int
+  + borrow() : void
+  + unborrow() : void
 }
 
 class Member extends User{
-  - itemLoaned : Item[]
+  - itemBorrowed : Item[]
   - fee : double
   + borrowItem(Item item) : void
 }
 
 class ReferenceOnly extends Item {
-
 }
 
 ' TODO: add boxes for Book and DVD. What differs between them — a whole class,
@@ -69,6 +76,7 @@ abstract class User {
 }
 
 class Librarian extends User {
+    - items : Item[]
     + waive(Member member) : void
     + addItem(Item item) : void
 }
@@ -77,7 +85,7 @@ class Librarian extends User {
 
 ' TODO: add the arrows between all of your types.
 Member  -->  Item
-Librarian ..> Item
+Librarian --> Item
 Librarian ..> Member
 
 
