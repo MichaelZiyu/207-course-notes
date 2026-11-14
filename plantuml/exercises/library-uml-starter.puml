@@ -20,11 +20,39 @@ hide empty members
 ' (Putting the parent/interface on the LEFT of the arrow keeps it on top, which
 '  is the convention used in these notes.)
 
+' A library lets members borrow items. Each item has a title and a unique catalogue
+' number. Books can be borrowed for three weeks; DVDs can be borrowed for one week.
+' Some items are reference-only and cannot be borrowed at all. Members log in with
+' a member number and can place a hold on an item that is currently on loan.
+' Librarians can add new items to the catalogue and can waive a member's late fee.
+
 abstract class Item {
   - title : String
   - catalogueNumber : String
   + getTitle() : String
   + getCatalogueNumber() : String
+}
+
+interface Borrowable {
+  + getBorrowWeek() : int
+}
+
+class Book extends Item implements Borrowable{
+  + getBorrowWeek() : int
+}
+
+class DVD extends Item implements Borrowable{
+  + getBorrowWeek() : int
+}
+
+class Member extends User{
+  - itemLoaned : Item[]
+  - fee : double
+  + borrowItem(Item item) : void
+}
+
+class ReferenceOnly extends Item {
+
 }
 
 ' TODO: add boxes for Book and DVD. What differs between them — a whole class,
@@ -36,10 +64,22 @@ abstract class Item {
 
 ' TODO: add Member and Librarian. What do they have in common? Add the common
 '       supertype if you think one is warranted.
+abstract class User {
+  - idNumber : int
+}
 
+class Librarian extends User {
+    + waive(Member member) : void
+    + addItem(Item item) : void
+}
 ' TODO: add whatever represents a hold, and connect it to the classes that need
 '       to know about it.
 
 ' TODO: add the arrows between all of your types.
+Member  -->  Item
+Librarian ..> Item
+Librarian ..> Member
+
+
 
 @enduml

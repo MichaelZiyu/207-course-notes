@@ -25,5 +25,19 @@ interface Chargeable {
 ' TODO: add "abstract class Vehicle", "class Car", and "class ElectricCar"
 '       (with their fields and methods), then add the arrows between all four
 '       types.
+abstract class Vehicle {
+    # make : String
+    + maxSpeed() : int
+}
 
+class Car extends Vehicle {
+  + maxSpeed() : int
+}
+
+class ElectricCar extends Car implements Chargeable {
+  - batteryLevel : int
+  + maxSpeed() : int
+  + charge() : void
+
+}
 @enduml
