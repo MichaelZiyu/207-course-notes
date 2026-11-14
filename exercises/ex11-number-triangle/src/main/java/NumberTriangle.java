@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
 
 /**
  * Exercise (Chapter: APIs, JSON, and Files) — reading data from a file into objects.
@@ -109,7 +110,18 @@ public class NumberTriangle {
     //       value of wherever you ended up. An empty path means "stay here".
     //       Hint: String#charAt(int) and String#length() are all you need for the
     //       iterative version; a recursive version can use String#substring(1).
-    return 0;
+    char a;
+    NumberTriangle current = this;
+    for (int i = 0; i < path.length(); i++) {
+      a = path.charAt(i);
+      if (a == 'l') current = current.left;
+      else current = current.right;
+    }
+    return current.getRoot();
+  }
+
+  public String toString() {
+    return "" + root;
   }
 
   /**
@@ -175,16 +187,44 @@ public class NumberTriangle {
     NumberTriangle top = null;
 
     String line = br.readLine();
+    String[] numbers;
+    NumberTriangle[] extendedLastLayer = null;
     while (line != null) {
-
-      // Remove this line when you are done; it is here so that the starter code
-      // prints the contents of the file when you run it.
-      System.out.println(line);
 
       // TODO: process the line. Splitting it on spaces gives you the numbers in
       //       this row; make a NumberTriangle for each one, then wire this row up
       //       as the children of the previous row. Remember the aliasing: the
       //       right child of one node is the left child of the next node over.
+      if (extendedLastLayer == null) {
+        extendedLastLayer = new NumberTriangle[3];
+        extendedLastLayer[0] = null;
+        top = new NumberTriangle(Integer.parseInt(line));
+        extendedLastLayer[1] = top;
+        extendedLastLayer[2] = null;
+        line = br.readLine();
+        continue;
+      }
+
+
+      numbers = line.split(" ");
+      int leftindex = 0;
+      NumberTriangle[] nextLayerBuffer = new NumberTriangle[numbers.length + 2];
+      nextLayerBuffer[0] = null;
+      nextLayerBuffer[nextLayerBuffer.length - 1] = null;
+      NumberTriangle triangle, left, right;
+      for (String number : numbers) {
+        triangle = new NumberTriangle(Integer.parseInt(number));
+        left = extendedLastLayer[leftindex];
+        right = extendedLastLayer[leftindex + 1];
+
+        if (left != null) left.setRight(triangle);
+        if (right != null) right.setLeft(triangle);
+
+        nextLayerBuffer[leftindex + 1] = triangle;
+
+        leftindex ++;
+      }
+      extendedLastLayer = nextLayerBuffer;
 
       // read the next line
       line = br.readLine();
@@ -200,7 +240,7 @@ public class NumberTriangle {
    * @throws IOException if the file cannot be read
    */
   public static void main(String[] args) throws IOException {
-    NumberTriangle mt = NumberTriangle.loadTriangle("input_tree.txt");
-    System.out.println("Root of the triangle: " + mt.getRoot());
+    NumberTriangle mt = NumberTriangle.loadTriangle("exercises/ex11-number-triangle/input_tree.txt");
+    System.out.println(mt);
   }
 }

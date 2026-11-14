@@ -20,7 +20,7 @@ public class DigitSum {
      * @param n any int
      * @return the sum of its decimal digits
      */
-    public static int digitSum(int n) {
+    public static int digitSum(int n, int useless) {
         if (n < 0) n = -n;
         int result = 0;
         while (n > 0){
@@ -28,5 +28,31 @@ public class DigitSum {
             n /= 10;
         }
         return result;
+    }
+
+    public static void print(Object a){
+        System.out.println(a);
+    }
+
+    public static int digitSum(int n) {
+        n = Math.abs(n);
+        int pos = (n + "").length();
+        int sum = 0;
+        int step, currentDigit, buffer;
+        int finder = 0;
+        while (pos > 0) {
+            step = (int) Math.pow(10, (double) pos - 1);
+            currentDigit = 0;
+            buffer = finder;
+            while (buffer <= n) {
+                buffer += step;
+                currentDigit += 1;
+            }
+            currentDigit -= 1;
+            sum += currentDigit;
+            finder += currentDigit * step;
+            pos -= 1;
+        }
+        return sum;
     }
 }
